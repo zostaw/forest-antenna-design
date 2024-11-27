@@ -9,11 +9,16 @@ model ( "yagi-uda" )
     real director4_length, director4_spacing;
     element dipole_wire;
 
+
+
+    // assumptions
     height = 10.2;
     freq = 433; // Mhz
     c = 300; // Mm/s
     wave_length = c/freq;
     wire_thickness = #14;
+    
+    
     
     // setup env
     setFrequency(freq) ;
@@ -22,10 +27,14 @@ model ( "yagi-uda" )
     freespace();
     //poorGround();
     
+    
+    
     // dipole
     dipole_length = 0.5*wave_length;
     dipole_wire = wire(0, -dipole_length/2, height, 0, dipole_length/2, height, wire_thickness, 20);
     voltageFeed(dipole_wire, 1.0, 0.0);
+    
+    
     
     // reflector
     reflector_length = 0.48*wave_length;
