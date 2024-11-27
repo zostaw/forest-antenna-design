@@ -6,6 +6,7 @@ model ( "yagi-uda" )
     real director_length, director_spacing;
     real director2_length, director2_spacing;
     real director3_length, director3_spacing;
+    real director4_length, director4_spacing;
     element dipole_wire;
 
     height = 10.2;
@@ -26,9 +27,11 @@ model ( "yagi-uda" )
     voltageFeed(dipole_wire, 1.0, 0.0);
     
     // reflector
-    reflector_length = 0.5*wave_length;
-    reflector_spacing = -0.22*wave_length;
+    reflector_length = 0.48*wave_length;
+    reflector_spacing = -0.24*wave_length;
     wire(reflector_spacing, -reflector_length/2, height, reflector_spacing, reflector_length/2, height, #14, 20);
+    
+ 
     
     // director
     director_length = 0.46*wave_length;
@@ -44,6 +47,11 @@ model ( "yagi-uda" )
     director3_length = 0.45*wave_length;
     director3_spacing = 0.35*wave_length;
     wire(director3_spacing, -director3_length/2, height, director3_spacing, director3_length/2, height, #14, 20);
+    
+    // director 4
+    director4_length = 0.46*wave_length;
+    director4_spacing = 0.57*wave_length;
+    wire(director4_spacing, -director4_length/2, height, director4_spacing, director4_length/2, height, #14, 20);
     
 
 }
