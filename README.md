@@ -8,7 +8,7 @@ Because of that and to reduce the number of factor that I need to focus on, I as
 Once I'll design the first version of antenna, I'll start analysing it from more nuanced perspective of propagation conditions.  
 
 Current state:  
-![Yagi-Uda sketch](yagi-uda-sketch.png)
+![Yagi-Uda sketch](docs/yagi-uda-sketch.png)
 
  
 
