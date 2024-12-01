@@ -1,4 +1,5 @@
 import necpp
+import random
 
 def handle_nec(result):
     if (result != 0):
@@ -38,6 +39,14 @@ def calc_yagi(freq, chromosome):
     return (z, g)
 
 
+def random_chromosome(wire_len_limits, distance_step, max_distance_steps, wires):
+    if not isinstance(wires, int):
+        raise("wires must be a positive integer")
+    if wires < 1:
+        raise("Chromosome must have at least one wire (dipole), but has none.")
+    existance = lambda a: (False if a<0.5 else True)
+    return [(existance(random.uniform(0, 1)), distance_step*random.randint(0, max_distance_steps), random.uniform(wire_len_limits[0], wire_len_limits[1])) for _ in range(wires)]
+
 
 """
 Gene: binary number
@@ -55,7 +64,13 @@ if __name__ == "__main__":
     dipole_length = 0.5*wave_length
 
 
-    first_chromosome = [(True, 0, 1e-1), (False, 1e-2, 1e-1), (True, 1e-2, 1e-1), (False, 1e-2, 1e-1), (False, 1e-2, 1e-1), (False, 1e-2, 1e-1)]
+    wire_len_limits = (0.005, 0.3) # [m]
+    distance_step = 0.005 # [m]
+    max_distance_steps = 200
+    elements = 4
+
+    # first_chromosome = [(True, 0, 1e-1), (False, 1e-2, 1e-1), (True, 1e-2, 1e-1), (False, 1e-2, 1e-1), (False, 1e-2, 1e-1), (False, 1e-2, 1e-1)]
+    first_chromosome = random_chromosome(wire_len_limits, distance_step, max_distance_steps, elements)
 
     (z, g) = calc_yagi(freq, first_chromosome)
 
