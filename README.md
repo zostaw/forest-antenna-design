@@ -20,3 +20,8 @@ But after [being forced out of Racket](docs/gpt-cocoa-to-nec2cpp-conversion.md),
 
 So, what are prerequisites:
 - pip install necpp
+
+
+So, after running the first version of the code, it doesn't look promissing:
+
+![evolution](docs/evolution.png)
