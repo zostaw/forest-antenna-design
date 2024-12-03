@@ -222,7 +222,7 @@ if __name__ == "__main__":
         print(calculate_fitness(population, params))
 
     with open(params["last_generation_file"], 'w') as f:
-        f.write(str(calculate_fitness(population, params)))
+        f.write(str(sorted(calculate_fitness(population, params), key=lambda x: x[1])))
 
 
     # Visualize data at the end
