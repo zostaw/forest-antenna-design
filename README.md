@@ -22,6 +22,18 @@ So, what are prerequisites:
 - pip install necpp
 
 
-So, after running the first version of the code, it doesn't look promissing:
+So, after implementation results are like so:
 
 ![evolution](docs/evolution.png)
+This is with parameters:
+
+    {"freq": 433.0,
+              "wire_len_limits": (0.005, 0.4), # [m]
+              "distance_step": 0.005, # [m] distance between elements
+              "max_distance_steps": 80,
+              "num_elements": 7, # includes dipole and reflector
+              "population_size": 100,
+              "crossover_rate": 0.5,
+              "mutation_rate": 0.05,
+              "num_generations": 100}
+It seems a little bit suspicious considering the fact that one ought to expect Yagi to be in around 10 dBm.  
