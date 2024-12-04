@@ -35,5 +35,5 @@ This is with parameters:
               "population_size": 100,
               "crossover_rate": 0.5,
               "mutation_rate": 0.05,
-              "num_generations": 100}
-It seems a little bit suspicious considering the fact that one ought to expect Yagi to be in around 10 dBm.  
+              "num_generations": 50}
+
