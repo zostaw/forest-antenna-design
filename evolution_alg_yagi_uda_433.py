@@ -5,6 +5,7 @@ import random
 from enum import Enum
 import numpy as np
 import matplotlib.pyplot as plt
+import ast
 
 
 
@@ -20,7 +21,7 @@ def handle_nec(result):
 
 def calc_yagi(chromosome, params, calc_result="gain"):
 
-    segments = 21
+    segments = 101
     height = 10.2
     wire_thickness = 2.55e-4
 
@@ -48,7 +49,7 @@ def calc_yagi(chromosome, params, calc_result="gain"):
 
     handle_nec(necpp.nec_geometry_complete(nec, 0))
     handle_nec(necpp.nec_fr_card(nec, 0, 1, params["freq"], 0))
-    handle_nec(necpp.nec_ex_card(nec, 0, 1, 11, 1, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)) 
+    handle_nec(necpp.nec_ex_card(nec, 0, 1, 51, 1, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0)) 
     handle_nec(necpp.nec_rp_card(nec, 0, 360, 1000, 0, 0, 0, 0, 90.0, 0.0, 1.0, 1.0, 5000.0, 0.0))
     handle_nec(necpp.nec_rp_card(nec, 0, 1, 1000, 0, 0, 0, 0, -90.0, 0.0, 0.0, 1.0, 5000.0, 0.0))
     handle_nec(necpp.nec_rp_card(nec, 0, 91, 120, 0, 0, 0, 0, 0.0, 0.0, 1.0, 1.0, 5000.0, 0.0))
@@ -201,17 +202,26 @@ if __name__ == "__main__":
               "population_size": 100,
               "crossover_rate": 0.5,
               "mutation_rate": 0.05,
-              "num_generations": 100,
+              "num_generations": 50,
               "fitness_scores_file": "fitness_scores.json", 
-              "last_generation_file": "last_generation.txt"}
+              "last_generation_file": "last_generation.txt",
+              "preload_last_generation": True}
 
     scores = []
 
     # Initialization
-    population = initialize_population(params)
-    scores.append([score for chromosome, score in calculate_fitness(population, params)])
-    print("\nInitial:")
-    print(calculate_fitness(population, params))
+    if params["preload_last_generation"] and os.path.exists(params["last_generation_file"]):
+        with open(params["last_generation_file"], 'r') as f:
+            population_with_sc = ast.literal_eval(f.read())
+        population = [chromosome for chromosome, score in population_with_sc]
+        scores.append([score for chromosome, score in population_with_sc])
+        print("\nInitial:")
+        print(population_with_sc)
+    else:
+        population = initialize_population(params)
+        scores.append([score for chromosome, score in calculate_fitness(population, params)])
+        print("\nInitial:")
+        print(calculate_fitness(population, params))
 
     # Run evolution
     for gen_id in range(1, params["num_generations"]+1):
