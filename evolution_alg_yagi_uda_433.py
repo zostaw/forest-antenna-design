@@ -78,7 +78,8 @@ def random_gene(gene_cluster_id, gene_type: [WireGene], params):
         case WireGene.DISTANCE:
             return  0.0 if (gene_cluster_id == 0) else params["distance_step"]*random.randint(0, params["max_distance_steps"])
         case WireGene.LENGTH:
-            return random.uniform(params["wire_len_limits"][0], params["wire_len_limits"][1])
+            return  params["wire_len_step"]*random.randint(0, params["max_len_steps"])
+            #return random.uniform(params["wire_len_limits"][0], params["wire_len_limits"][1])
 
 
 
@@ -196,13 +197,15 @@ if __name__ == "__main__":
 
     params = {"freq": 433.0,
               "wire_len_limits": (0.005, 0.4), # [m]
+              "wire_len_step": 0.005,
+              "max_len_steps": 80,
               "distance_step": 0.005, # [m]
               "max_distance_steps": 80,
               "num_elements": 7,
               "population_size": 100,
               "crossover_rate": 0.5,
-              "mutation_rate": 0.05,
-              "num_generations": 50,
+              "mutation_rate": 0.1,
+              "num_generations": 200,
               "fitness_scores_file": "fitness_scores.json", 
               "last_generation_file": "last_generation.txt",
               "preload_last_generation": True}
